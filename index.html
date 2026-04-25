@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ocean Shark Interaction</title>
+
+<style>
+/* 🌊 Background */
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #8fb3c9, #5f7f92);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+/* 🦈 Shark */
+#shark {
+  width: 200px;
+  transition: transform 0.5s ease;
+}
+
+/* Status text */
+#text {
+  position: absolute;
+  bottom: 40px;
+  color: white;
+  font-size: 18px;
+  opacity: 0.9;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🦈 Shark image -->
+<img id="shark" src="https://i.imgur.com/3ZQ3ZQq.png" alt="shark">
+
+<div id="text">Touch and hold the screen 🫧</div>
+
+<script>
+let shark = document.getElementById("shark");
+let timeout;
+
+// When user touches screen
+document.addEventListener("touchstart", () => {
+  shark.style.transform = "scale(1.1) rotate(-5deg)";
+  clearTimeout(timeout);
+});
+
+// When user stops touching → shark reacts
+document.addEventListener("touchend", () => {
+  timeout = setTimeout(() => {
+    shark.style.transform = "scale(1) rotate(0deg)";
+  }, 500);
+});
+
+// Mouse support (for laptop testing)
+document.addEventListener("mousedown", () => {
+  shark.style.transform = "scale(1.1) rotate(-5deg)";
+  clearTimeout(timeout);
+});
+
+document.addEventListener("mouseup", () => {
+  timeout = setTimeout(() => {
+    shark.style.transform = "scale(1) rotate(0deg)";
+  }, 500);
+});
+</script>
+
+</body>
+</html>
