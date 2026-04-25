@@ -29,30 +29,24 @@
   }
 
   @keyframes rise {
-    0% {
-      transform: translateY(0);
-      opacity: 0.3;
-    }
-    100% {
-      transform: translateY(-110vh);
-      opacity: 0;
-    }
+    0% { transform: translateY(0); opacity: 0.3; }
+    100% { transform: translateY(-110vh); opacity: 0; }
   }
 
-  /* Shark */
+  /* Shark image */
   #shark {
     position: absolute;
-    width: 120px;
-    height: 60px;
+    width: 140px;
+    height: auto;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.6s ease-out, left 0.6s ease-out, top 0.6s ease-out;
+    filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.4));
   }
 
   #shark:hover {
     transform: scale(1.1);
   }
 
-  /* Hint text */
   .hint {
     position: absolute;
     top: 20px;
@@ -67,26 +61,16 @@
 
 <body>
 
-<div class="hint">🐟 Click the shark and watch it swim away!</div>
+<div class="hint">🦈 Click the shark and watch it swim away!</div>
 
-<!-- Shark SVG -->
-<svg id="shark" viewBox="0 0 200 100">
-  <path d="M10,50 
-           Q60,10 120,30 
-           Q150,40 180,20 
-           Q170,50 180,80 
-           Q150,60 120,70 
-           Q60,90 10,50 Z"
-        fill="#a0c4ff" stroke="#ffffff" stroke-width="2"/>
-
-  <!-- eye -->
-  <circle cx="60" cy="45" r="5" fill="black"/>
-</svg>
+<!-- REAL SHARK IMAGE -->
+<img id="shark"
+     src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/White_shark.jpg/640px-White_shark.jpg"
+     alt="shark" />
 
 <script>
 const shark = document.getElementById("shark");
 
-// starting position
 let x = window.innerWidth / 2;
 let y = window.innerHeight / 2;
 
@@ -94,28 +78,24 @@ shark.style.left = x + "px";
 shark.style.top = y + "px";
 
 function moveSharkAway() {
-  // random direction away
   const angle = Math.random() * Math.PI * 2;
-  const distance = 200 + Math.random() * 300;
+  const distance = 250 + Math.random() * 400;
 
   x += Math.cos(angle) * distance;
   y += Math.sin(angle) * distance;
 
-  // keep inside screen bounds
-  x = Math.max(0, Math.min(window.innerWidth - 120, x));
-  y = Math.max(0, Math.min(window.innerHeight - 60, y));
+  x = Math.max(0, Math.min(window.innerWidth - 140, x));
+  y = Math.max(0, Math.min(window.innerHeight - 100, y));
 
-  shark.style.transition = "transform 0.6s ease-out, left 0.6s ease-out, top 0.6s ease-out";
   shark.style.left = x + "px";
   shark.style.top = y + "px";
 
-  // swim direction tilt
-  shark.style.transform = `rotate(${angle}rad)`;
+  shark.style.transform = `rotate(${angle}rad) scale(1.1)`;
 }
 
 shark.addEventListener("click", moveSharkAway);
 
-// create bubbles
+// bubbles
 function createBubbles() {
   for (let i = 0; i < 25; i++) {
     let bubble = document.createElement("div");
